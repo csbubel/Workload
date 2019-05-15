@@ -56,6 +56,7 @@ class Task extends ElementBase {
   constructor(task) {
     super("label");
     this.element.innerText = task.title;
+    this.element.htmlFor = `checkbox-${task.id}`;
   }
 
   updateTask (text) {
@@ -79,8 +80,9 @@ class TextInput extends ElementBase {
 }
 
 class Checkbox extends ElementBase {
-  constructor(eventHandler) {
+  constructor(id, eventHandler) {
     super("input");
+    this.element.id = id;
     this.element.type = "checkbox";
     this.eventHandler = eventHandler;
     this.element.addEventListener("change", this.eventHandler);
@@ -107,7 +109,7 @@ class TaskRootContainer extends ElementBase {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleCheckToggle = this.handleCheckToggle.bind(this);
 
-    this.checkbox = new Checkbox(this.handleCheckToggle);
+    this.checkbox = new Checkbox(`checkbox-${this.task.id}`, this.handleCheckToggle);
     this.addChild(this.checkbox);
     this.addChild(new TaskContainer(task));
     this.addButton = new Button("+", this.handleInitiateAdd);
