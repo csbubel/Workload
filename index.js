@@ -33,6 +33,8 @@ class ElementBase {
     if (this.removeEventListeners) {
       this.removeEventListeners();
     }
+
+    this.children.length = 0;
     this.element.remove();
     this.element = null;
   }
@@ -97,7 +99,7 @@ class Checkbox extends ElementBase {
   }
 }
 
-// Contains the TaskContainer and root delete button
+// Contains the TaskContainer and root add/delete buttons
 class TaskRootContainer extends ElementBase {
   constructor(task) {
     super("div");
@@ -294,8 +296,17 @@ class TaskService {
   }
 
   incrementId () {
-    let id = (parseInt(localStorage.getItem("workload-task-id")) || -1) + 1;
+    let id = parseInt(localStorage.getItem("workload-task-id"));
+
+    if (id !== NaN) {
+      id++;
+    }
+    else {
+      id = 0;
+    }
+
     localStorage.setItem("workload-task-id", id);
+
     return id;
   }
 
