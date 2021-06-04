@@ -1,5 +1,7 @@
 import { AnchorButton, Button, ButtonGroup, Classes, Collapse, ControlGroup, Dialog, FormGroup, H2, InputGroup, Intent, NonIdealState } from '@blueprintjs/core';
 import React, { useState } from 'react';
+import 'firebase/firestore';
+import { useFirestoreDocData, useFirestore } from 'reactfire';
 import "./App.css";
 
 const App = () => {
@@ -9,6 +11,15 @@ const App = () => {
   const [links, setLinks] = useState<string[]>([]);
   const [processedLinks, setProcessedLinks] = useState<string[]>([]);
   const [collapseIsOpen, setCollapseIsOpen] = useState(false);
+
+  // easily access the Firestore library
+  const docRef = useFirestore()
+    .collection('links')
+    .doc('uVg82XGeIY5qSFmFrrvb');
+
+  // subscribe to a document for realtime updates. just one line!
+  const { status, data } = useFirestoreDocData(docRef);
+  console.log(status, data);
 
   const addLinkToQueue = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

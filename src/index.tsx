@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App';
+import { FirebaseAppProvider } from 'reactfire';
 import reportWebVitals from './reportWebVitals';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBKASnS8wvfAaTjygRP0hPGAxQkbnIneU4",
+  authDomain: "workload-dfd13.firebaseapp.com",
+  databaseURL: "https://workload-dfd13.firebaseio.com",
+  projectId: "workload-dfd13",
+  storageBucket: "workload-dfd13.appspot.com",
+  messagingSenderId: "362610505012",
+  appId: "1:362610505012:web:e47d4fb7cfb3651e54e161"
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+      <App />
+    </FirebaseAppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
