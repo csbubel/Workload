@@ -98,7 +98,7 @@ const App = () => {
         </div>
       </div>
     </Dialog>
-  </div >
+  </div>
 };
 
 export default App;

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import { FirebaseAppProvider } from 'reactfire';
 import reportWebVitals from './reportWebVitals';
+import { Auth, AuthWrapper } from './components/Auth';
+import { Spinner } from '@blueprintjs/core';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBKASnS8wvfAaTjygRP0hPGAxQkbnIneU4",
@@ -17,8 +19,13 @@ const firebaseConfig = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <App />
+    <FirebaseAppProvider firebaseConfig={firebaseConfig} suspense={true}>
+      <Suspense fallback={<Spinner />}>
+        <Auth />
+        <AuthWrapper fallback={<span style={{color: "white"}}>Sign in to use this component</span>}>
+          <App />
+        </AuthWrapper>
+      </Suspense>
     </FirebaseAppProvider>
   </React.StrictMode>,
   document.getElementById('root')
